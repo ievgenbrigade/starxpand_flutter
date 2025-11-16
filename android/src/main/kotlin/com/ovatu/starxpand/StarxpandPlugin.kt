@@ -211,6 +211,35 @@ class StarxpandPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     }
   }
 
+  private fun getStatus(@NonNull args: Map<*, *>, result: Result) {
+    Log.d("Discovery", "getStatus. ${args["printer"]}")
+    val printer = getPrinter(args["printer"] as Map<*, *>)
+
+    val job = SupervisorJob()
+    val scope = CoroutineScope(Dispatchers.Default + job)
+    scope.launch {
+      try {
+        closePrinter(printer)
+        openPrinter(printer)
+
+        val status = printer.getStatusAsync().await()
+
+        result.success(mutableMapOf(
+          "detail" to status.detail.toString(),
+          "hasError" to  status.hasError,
+          "coverOpen" to status.coverOpen,
+          "drawerOpenCloseSignal" to status.drawerOpenCloseSignal,
+          "paperEmpty" to status.paperEmpty,
+          "paperNearEmpty" to status.paperNearEmpty
+        ))
+      } catch (e: Exception) {
+        result.error("error", e.localizedMessage, e)
+      } finally {
+        closePrinter(printer)
+      }
+    }
+  }
+
   private fun stopInputListener(@NonNull args: Map<*, *>, result: Result) {
     Log.d("Discovery", "startInputListener. ${args["printer"]}")
     val printer = getPrinter(args["printer"] as Map<*, *>)
