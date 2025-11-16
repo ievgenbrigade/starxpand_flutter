@@ -84,6 +84,7 @@ class StarxpandPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
       "printDocument" -> printDocument(call.arguments as Map<*, *>, result)
       "startInputListener" -> startInputListener(call.arguments as Map<*, *>, result)
       "stopInputListener" -> stopInputListener(call.arguments as Map<*, *>, result)
+      "getStatus" -> getStatus(call.arguments as Map<*, *>, result)
       else -> result.notImplemented()
     }
   }
