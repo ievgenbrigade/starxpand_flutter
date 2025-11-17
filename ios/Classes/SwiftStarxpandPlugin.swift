@@ -54,7 +54,6 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
                 await printer.close()
                 
                 result([
-                    "detail": status.detail.stringValue(),
                     "hasError": status.hasError,
                     "coverOpen": status.coverOpen,
                     "drawerOpenCloseSignal": status.drawerOpenCloseSignal,

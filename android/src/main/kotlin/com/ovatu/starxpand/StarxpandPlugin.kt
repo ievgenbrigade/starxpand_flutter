@@ -225,7 +225,6 @@ class StarxpandPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         val status = printer.getStatusAsync().await()
 
         result.success(mutableMapOf(
-          "detail" to status.detail.toString(),
           "hasError" to  status.hasError,
           "coverOpen" to status.coverOpen,
           "drawerOpenCloseSignal" to status.drawerOpenCloseSignal,
