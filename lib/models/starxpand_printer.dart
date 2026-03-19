@@ -46,6 +46,7 @@ enum StarXpandPrinterModel {
   final List<StarXpandPrinterPaper> paper;
 
   const StarXpandPrinterModel(this.label, this.paper);
+  factory StarXpandPrinterModel.fromName(String name) => StarXpandPrinterModel.values.byName(name);
   factory StarXpandPrinterModel.fromLabel(String label) =>
       StarXpandPrinterModel.values.where((e) => e.label.toLowerCase() == label.toLowerCase()).first;
 }
