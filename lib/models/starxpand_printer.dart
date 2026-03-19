@@ -47,7 +47,7 @@ enum StarXpandPrinterModel {
 
   const StarXpandPrinterModel(this.label, this.paper);
   factory StarXpandPrinterModel.fromLabel(String label) =>
-      StarXpandPrinterModel.values.where((e) => e.label == label).first;
+      StarXpandPrinterModel.values.where((e) => e.label.toLowerCase() == label.toLowerCase()).first;
 }
 
 class StarXpandPrinter {
@@ -55,9 +55,10 @@ class StarXpandPrinter {
 
   /// Build response using map recieved from native platform
   factory StarXpandPrinter.fromMap(Map<String, dynamic> response) => StarXpandPrinter(
-      model: StarXpandPrinterModel.fromLabel(response['model']),
-      identifier: response['identifier'],
-      interface: StarXpandInterface.fromName(response['interface']));
+    model: StarXpandPrinterModel.fromLabel(response['model']),
+    identifier: response['identifier'],
+    interface: StarXpandInterface.fromName(response['interface']),
+  );
 
   // Name of the called method
   final StarXpandPrinterModel model;
