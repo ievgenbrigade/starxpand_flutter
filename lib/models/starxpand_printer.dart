@@ -40,15 +40,25 @@ enum StarXpandPrinterModel {
   smL200('SM-L200', [StarXpandPrinterPaper.mm58]),
   smL300('SM-L300', [StarXpandPrinterPaper.mm58]),
   sp700('SP-700', [StarXpandPrinterPaper.mm76]),
+  generic('Generic', [StarXpandPrinterPaper.mm80]),
   unknown('Unknown', []);
 
   final String label;
   final List<StarXpandPrinterPaper> paper;
 
   const StarXpandPrinterModel(this.label, this.paper);
-  factory StarXpandPrinterModel.fromName(String name) => StarXpandPrinterModel.values.byName(name);
+  factory StarXpandPrinterModel.fromName(String name) {
+    try {
+      return StarXpandPrinterModel.values.byName(name);
+    } catch (e) {
+      return StarXpandPrinterModel.generic;
+    }
+  }
   factory StarXpandPrinterModel.fromLabel(String label) =>
-      StarXpandPrinterModel.values.where((e) => e.label.toLowerCase() == label.toLowerCase()).first;
+      StarXpandPrinterModel.values
+          .where((e) => e.label.toLowerCase() == label.toLowerCase())
+          .firstOrNull ??
+      StarXpandPrinterModel.generic;
 }
 
 class StarXpandPrinter {
