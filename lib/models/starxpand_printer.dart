@@ -5,8 +5,7 @@ enum StarXpandInterface {
   bluetoothLE,
   lan;
 
-  static StarXpandInterface fromName(String name) =>
-      StarXpandInterface.values.where((e) => e.name == name).first;
+  factory StarXpandInterface.fromName(String name) => StarXpandInterface.values.byName(name);
 }
 
 enum StarXpandPrinterPaper {
@@ -47,21 +46,23 @@ enum StarXpandPrinterModel {
   final List<StarXpandPrinterPaper> paper;
 
   const StarXpandPrinterModel(this.label, this.paper);
-  static StarXpandPrinterModel fromName(String name) =>
-      StarXpandPrinterModel.values.where((e) => e.name == name).first;
+  factory StarXpandPrinterModel.fromLabel(String label) =>
+      StarXpandPrinterModel.values.where((e) => e.label == label).first;
 }
 
 class StarXpandPrinter {
+  const StarXpandPrinter({required this.model, required this.identifier, required this.interface});
+
   /// Build response using map recieved from native platform
-  StarXpandPrinter.fromMap(Map<String, dynamic> response)
-      : model = StarXpandPrinterModel.fromName(response['model']),
-        identifier = response['identifier'],
-        interface = StarXpandInterface.fromName(response['interface']);
+  factory StarXpandPrinter.fromMap(Map<String, dynamic> response) => StarXpandPrinter(
+      model: StarXpandPrinterModel.fromLabel(response['model']),
+      identifier: response['identifier'],
+      interface: StarXpandInterface.fromName(response['interface']));
 
   // Name of the called method
-  StarXpandPrinterModel model;
-  String identifier;
-  StarXpandInterface interface;
+  final StarXpandPrinterModel model;
+  final String identifier;
+  final StarXpandInterface interface;
 
   /// Render a string repesentation of the response
   @override
