@@ -56,7 +56,7 @@ class StarXpandPrinter {
 
   /// Build response using map recieved from native platform
   factory StarXpandPrinter.fromMap(Map<String, dynamic> response) => StarXpandPrinter(
-    model: StarXpandPrinterModel.fromLabel(response['model']),
+    model: StarXpandPrinterModel.fromName(response['model']),
     identifier: response['identifier'],
     interface: StarXpandInterface.fromName(response['interface']),
   );
