@@ -2,8 +2,7 @@ import 'dart:typed_data';
 
 import 'starxpand_printer.dart';
 
-typedef StarXpandCallback<T extends StarXpandCallbackPayload> = void Function(
-    T payload);
+typedef StarXpandCallback<T extends StarXpandCallbackPayload> = void Function(T payload);
 
 class StarXpandCallbackHandler<T extends StarXpandCallbackPayload> {
   final T Function(String type, Map<String, dynamic> data)? payloadBuilder;
@@ -16,9 +15,8 @@ class StarXpandCallbackHandler<T extends StarXpandCallbackPayload> {
     return "StarXpandCallbackHandler payloadBuilder: $payloadBuilder, callback: $callback";
   }
 
-  call(String type, Map<String, dynamic> data) {
-    var payload = payloadBuilder?.call(type, data) ??
-        StarXpandCallbackPayload(type, data) as T;
+  void call(String type, Map<String, dynamic> data) {
+    var payload = payloadBuilder?.call(type, data) ?? StarXpandCallbackPayload(type, data) as T;
     callback(payload);
   }
 }
@@ -32,14 +30,13 @@ class StarXpandCallbackPayload {
     fromMap(data);
   }
 
-  fromMap(Map<String, dynamic> data) {}
+  void fromMap(Map<String, dynamic> data) {}
 }
 
 class StarXpandPrinterPayload extends StarXpandCallbackPayload {
   late final StarXpandPrinter printer;
 
-  StarXpandPrinterPayload(String type, Map<String, dynamic> payload)
-      : super(type, payload);
+  StarXpandPrinterPayload(super.type, super.payload);
 
   @override
   fromMap(Map<String, dynamic> data) {
@@ -56,8 +53,7 @@ class StarXpandInputPayload extends StarXpandCallbackPayload {
   late final String inputString;
   late final Uint8List inputData;
 
-  StarXpandInputPayload(String type, Map<String, dynamic> payload)
-      : super(type, payload);
+  StarXpandInputPayload(super.type, super.payload);
 
   @override
   fromMap(Map<String, dynamic> data) {

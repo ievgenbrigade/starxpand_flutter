@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:starxpand/models/starxpand_document.dart';
 
 enum StarXpandCutType { full, partial, fullDirect, partialDirect }
+
 enum StarXpandBarcodeSymbology {
   upcE,
   upcA,
@@ -14,27 +15,21 @@ enum StarXpandBarcodeSymbology {
   itf,
   code128,
   code93,
-  nw7
+  nw7,
 }
+
 enum StarXpandBarcodeBarRatioLevel { levelPlus1, level0, levelMinus1 }
 
-enum StarXpandPdf417Level {
-  ecc0,
-  ecc1,
-  ecc2,
-  ecc3,
-  ecc4,
-  ecc5,
-  ecc6,
-  ecc7,
-  ecc8
-}
+enum StarXpandPdf417Level { ecc0, ecc1, ecc2, ecc3, ecc4, ecc5, ecc6, ecc7, ecc8 }
 
 enum StarXpandQRCodeModel { model1, model2 }
+
 enum StarXpandQRCodeLevel { l, m, q, h }
 
 enum StarXpandStyleAlignment { left, center, right }
+
 enum StarXpandStyleFontType { a, b }
+
 enum StarXpandStyleInternationalCharacter {
   usa,
   france,
@@ -56,21 +51,18 @@ enum StarXpandStyleInternationalCharacter {
   china,
   vietnam,
   arabic,
-  legal
+  legal,
 }
+
 enum StarXpandStyleCharacterEncodingType {
   japanese,
   simplifiedChinese,
   traditionalChinese,
   korean,
-  codePage
+  codePage,
 }
-enum StarXpandStyleCjkCharacterType {
-  japanese,
-  simplifiedChinese,
-  traditionalChinese,
-  korean
-}
+
+enum StarXpandStyleCjkCharacterType { japanese, simplifiedChinese, traditionalChinese, korean }
 
 class StarXpandStyleMagnification {
   final int width;
@@ -87,7 +79,7 @@ class StarXpandDocumentPrint extends StarXpandDocumentContent {
   @override
   String get type => 'print';
 
-  style({
+  void style({
     StarXpandStyleAlignment? alignment,
     StarXpandStyleFontType? fontType,
     bool? bold,
@@ -103,96 +95,110 @@ class StarXpandDocumentPrint extends StarXpandDocumentContent {
     StarXpandStyleCharacterEncodingType? secondPriorityCharacterEncoding,
     List<StarXpandStyleCjkCharacterType>? cjkCharacterPriority,
   }) {
-    _actions.add({
-      'action': 'style',
-      'alignment': alignment?.name,
-      'fontType': fontType?.name,
-      'bold': bold,
-      'invert': invert,
-      'underLine': underLine,
-      'magnification': magnification?.toMap(),
-      'characterSpace': characterSpace,
-      'lineSpace': lineSpace,
-      'horizontalPositionTo': horizontalPositionTo,
-      'horizontalPositionBy': horizontalPositionBy,
-      'horizontalTabPosition': horizontalTabPosition,
-      'internationalCharacter': internationalCharacter?.name,
-      'secondPriorityCharacterEncoding': secondPriorityCharacterEncoding?.name,
-      'cjkCharacterPriority': cjkCharacterPriority?.map((e) => e.name).toList()
-    }..trim());
+    _actions.add(
+      {
+        'action': 'style',
+        'alignment': alignment?.name,
+        'fontType': fontType?.name,
+        'bold': bold,
+        'invert': invert,
+        'underLine': underLine,
+        'magnification': magnification?.toMap(),
+        'characterSpace': characterSpace,
+        'lineSpace': lineSpace,
+        'horizontalPositionTo': horizontalPositionTo,
+        'horizontalPositionBy': horizontalPositionBy,
+        'horizontalTabPosition': horizontalTabPosition,
+        'internationalCharacter': internationalCharacter?.name,
+        'secondPriorityCharacterEncoding': secondPriorityCharacterEncoding?.name,
+        'cjkCharacterPriority': cjkCharacterPriority?.map((e) => e.name).toList(),
+      }..trim(),
+    );
   }
 
-  add(StarXpandDocumentPrint print) {
+  void add(StarXpandDocumentPrint print) {
     _actions.add({'action': 'add', 'data': print.getData()});
   }
 
-  actionCut(StarXpandCutType type) {
+  void actionCut(StarXpandCutType type) {
     _actions.add({'action': 'cut', 'type': type.name});
   }
 
-  actionFeed(double height) {
+  void actionFeed(double height) {
     _actions.add({'action': 'feed', 'height': height});
   }
 
-  actionFeedLine(int lines) {
+  void actionFeedLine(int lines) {
     _actions.add({'action': 'feedLine', 'lines': lines});
   }
 
-  actionPrintText(String text) {
+  void actionPrintText(String text) {
     _actions.add({'action': 'printText', 'text': text});
   }
 
-  actionPrintLogo(String keyCode) {
+  void actionPrintLogo(String keyCode) {
     _actions.add({'action': 'printLogo', 'keyCode': keyCode});
   }
 
-  actionPrintBarcode(String content,
-      {StarXpandBarcodeSymbology? symbology,
-      bool? printHri,
-      int? barDots,
-      StarXpandBarcodeBarRatioLevel? barRatioLevel,
-      double? height}) {
-    _actions.add({
-      'action': 'printBarcode',
-      'content': content,
-      'symbology': symbology?.name,
-      'printHri': printHri,
-      'barDots': barDots,
-      'barRatioLevel': barRatioLevel?.name,
-      'height': height
-    }..trim());
+  void actionPrintBarcode(
+    String content, {
+    StarXpandBarcodeSymbology? symbology,
+    bool? printHri,
+    int? barDots,
+    StarXpandBarcodeBarRatioLevel? barRatioLevel,
+    double? height,
+  }) {
+    _actions.add(
+      {
+        'action': 'printBarcode',
+        'content': content,
+        'symbology': symbology?.name,
+        'printHri': printHri,
+        'barDots': barDots,
+        'barRatioLevel': barRatioLevel?.name,
+        'height': height,
+      }..trim(),
+    );
   }
 
-  actionPrintPdf417(String content,
-      {int? column,
-      int? line,
-      int? module,
-      int? aspect,
-      StarXpandPdf417Level? level}) {
-    _actions.add({
-      'action': 'printPdf417',
-      'content': content,
-      'line': line,
-      'module': module,
-      'aspect': aspect,
-      'level': level?.name
-    }..trim());
+  void actionPrintPdf417(
+    String content, {
+    int? column,
+    int? line,
+    int? module,
+    int? aspect,
+    StarXpandPdf417Level? level,
+  }) {
+    _actions.add(
+      {
+        'action': 'printPdf417',
+        'content': content,
+        'line': line,
+        'module': module,
+        'aspect': aspect,
+        'level': level?.name,
+      }..trim(),
+    );
   }
 
-  actionPrintQRCode(String content,
-      {StarXpandQRCodeModel? model,
-      StarXpandQRCodeLevel? level,
-      int? cellSize}) {
-    _actions.add({
-      'action': 'printQRCode',
-      'content': content,
-      'model': model?.name,
-      'level': level?.name,
-      'cellSize': cellSize
-    }..trim());
+  void actionPrintQRCode(
+    String content, {
+    StarXpandQRCodeModel? model,
+    StarXpandQRCodeLevel? level,
+    int? cellSize,
+  }) {
+    _actions.add(
+      {
+        'action': 'printQRCode',
+        'content': content,
+        'model': model?.name,
+        'level': level?.name,
+        'cellSize': cellSize,
+      }..trim(),
+    );
   }
 
-  actionPrintImage(Uint8List image, int width) {
+  void actionPrintImage(Uint8List image, int width) {
     _actions.add({'action': 'printImage', 'image': image, 'width': width});
   }
 
@@ -203,7 +209,7 @@ class StarXpandDocumentPrint extends StarXpandDocumentContent {
 }
 
 extension MapTrim on Map {
-  trim() {
+  void trim() {
     removeWhere((key, value) => value == null);
   }
 }

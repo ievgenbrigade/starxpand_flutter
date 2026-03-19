@@ -15,18 +15,18 @@ export 'package:starxpand/models/starxpand_printer.dart';
 
 class StarXpand {
   static final MethodChannel _channel = const MethodChannel('starxpand')
-    ..setMethodCallHandler((call) => _handler(call));
+    ..setMethodCallHandler((call) async => _handler(call));
 
   static final Map<String, StarXpandCallbackHandler> _callbackHandlers = {};
 
-  static _handler(MethodCall call) {
+  static void _handler(MethodCall call) {
     switch (call.method) {
       case "callback":
         _callback(Map<String, dynamic>.from(call.arguments));
     }
   }
 
-  static _callback(Map<String, dynamic> args) {
+  static void _callback(Map<String, dynamic> args) {
     var guid = args["guid"];
     var type = args["type"];
     var handler = _callbackHandlers[guid];
@@ -44,29 +44,35 @@ class StarXpand {
     return uuid;
   }
 
-  static _removeCallbackHandler(String guid) {
+  static void _removeCallbackHandler(String guid) {
     _callbackHandlers.remove(guid);
   }
 
-  static Future<List<StarXpandPrinter>> findPrinters(
-      {List<StarXpandInterface> interfaces = const [
-        StarXpandInterface.usb,
-        StarXpandInterface.bluetooth,
-        StarXpandInterface.bluetoothLE,
-        StarXpandInterface.lan
-      ],
-      int timeout = 3000,
-      StarXpandCallback<StarXpandPrinterPayload>? callback}) async {
-    var guid = _addCallbackHandler(StarXpandCallbackHandler<StarXpandPrinterPayload>(
+  static Future<List<StarXpandPrinter>> findPrinters({
+    List<StarXpandInterface> interfaces = const [
+      StarXpandInterface.usb,
+      StarXpandInterface.bluetooth,
+      StarXpandInterface.bluetoothLE,
+      StarXpandInterface.lan,
+    ],
+    int timeout = 3000,
+    StarXpandCallback<StarXpandPrinterPayload>? callback,
+  }) async {
+    var guid = _addCallbackHandler(
+      StarXpandCallbackHandler<StarXpandPrinterPayload>(
         (payload) => callback?.call(payload),
-        (type, data) => StarXpandPrinterPayload(type, Map<String, dynamic>.from(data))));
+        (type, data) => StarXpandPrinterPayload(type, Map<String, dynamic>.from(data)),
+      ),
+    );
 
-    Map<String, dynamic> result = Map<String, dynamic>.from(await _channel.invokeMethod(
-        'findPrinters', {
-      "callback": guid,
-      "timeout": timeout,
-      "interfaces": interfaces.map((e) => e.name).toList()
-    }) as Map);
+    Map<String, dynamic> result = Map<String, dynamic>.from(
+      await _channel.invokeMethod('findPrinters', {
+            "callback": guid,
+            "timeout": timeout,
+            "interfaces": interfaces.map((e) => e.name).toList(),
+          })
+          as Map,
+    );
 
     _removeCallbackHandler(guid);
 
@@ -79,29 +85,41 @@ class StarXpand {
 
   static Future<Map<String, dynamic>> getStatus(StarXpandPrinter printer) async {
     return Map<String, dynamic>.from(
-        await _channel.invokeMethod('getStatus', {"printer": printer.toMap()}));
+      await _channel.invokeMethod('getStatus', {"printer": printer.toMap()}),
+    );
   }
 
   static Future<bool> printDocument(StarXpandPrinter printer, StarXpandDocument document) async {
-    return await _channel
-        .invokeMethod('printDocument', {"printer": printer.toMap(), "document": document.toMap()});
+    return await _channel.invokeMethod('printDocument', {
+      "printer": printer.toMap(),
+      "document": document.toMap(),
+    });
   }
 
   static Future<String> startInputListener(
-      StarXpandPrinter printer, StarXpandCallback<StarXpandInputPayload> callback) async {
-    var guid = _addCallbackHandler(StarXpandCallbackHandler<StarXpandInputPayload>(
+    StarXpandPrinter printer,
+    StarXpandCallback<StarXpandInputPayload> callback,
+  ) async {
+    var guid = _addCallbackHandler(
+      StarXpandCallbackHandler<StarXpandInputPayload>(
         (payload) => callback.call(payload),
-        (type, data) => StarXpandInputPayload(type, Map<String, dynamic>.from(data))));
+        (type, data) => StarXpandInputPayload(type, Map<String, dynamic>.from(data)),
+      ),
+    );
 
-    await _channel
-        .invokeMethod('startInputListener', {"callback": guid, "printer": printer.toMap()});
+    await _channel.invokeMethod('startInputListener', {
+      "callback": guid,
+      "printer": printer.toMap(),
+    });
 
     return guid;
   }
 
   static Future stopInputListener(StarXpandPrinter printer, String guid) async {
-    await _channel
-        .invokeMethod('stopInputListener', {"callback": guid, "printer": printer.toMap()});
+    await _channel.invokeMethod('stopInputListener', {
+      "callback": guid,
+      "printer": printer.toMap(),
+    });
 
     _removeCallbackHandler(guid);
   }

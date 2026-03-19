@@ -3,8 +3,8 @@ import 'package:starxpand/starxpand.dart';
 class StarXpandDocument {
   final List<StarXpandDocumentContent> _contents = [];
 
-  addPrint(StarXpandDocumentPrint print) => _contents.add(print);
-  addDrawer(StarXpandDocumentDrawer drawer) => _contents.add(drawer);
+  void addPrint(StarXpandDocumentPrint print) => _contents.add(print);
+  void addDrawer(StarXpandDocumentDrawer drawer) => _contents.add(drawer);
 
   Map toMap() {
     return {"contents": _contents.map((e) => e.toMap()).toList()};

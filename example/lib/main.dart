@@ -25,18 +25,10 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _find() async {
-    var ps = await StarXpand.findPrinters(callback: (payload) => print('printer: $payload'));
+    var ps = await StarXpand.findPrinters(callback: (payload) => debugPrint('printer: $payload'));
     setState(() {
       printers = ps;
     });
-  }
-
-  _openDrawer(StarXpandPrinter printer) {
-    StarXpand.openDrawer(printer);
-  }
-
-  _startInputListener(StarXpandPrinter printer) {
-    StarXpand.startInputListener(printer, (p) => print('_startInputListener: ${p.inputString}'));
   }
 
   _print(StarXpandPrinter printer) async {
