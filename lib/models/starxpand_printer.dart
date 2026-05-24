@@ -5,8 +5,7 @@ enum StarXpandInterface {
   bluetoothLE,
   lan;
 
-  static StarXpandInterface fromName(String name) =>
-      StarXpandInterface.values.where((e) => e.name == name).first;
+  factory StarXpandInterface.fromName(String name) => StarXpandInterface.values.byName(name);
 }
 
 enum StarXpandPrinterPaper {
@@ -41,27 +40,41 @@ enum StarXpandPrinterModel {
   smL200('SM-L200', [StarXpandPrinterPaper.mm58]),
   smL300('SM-L300', [StarXpandPrinterPaper.mm58]),
   sp700('SP-700', [StarXpandPrinterPaper.mm76]),
+  generic('Generic', [StarXpandPrinterPaper.mm80]),
   unknown('Unknown', []);
 
   final String label;
   final List<StarXpandPrinterPaper> paper;
 
   const StarXpandPrinterModel(this.label, this.paper);
-  static StarXpandPrinterModel fromName(String name) =>
-      StarXpandPrinterModel.values.where((e) => e.name == name).first;
+  factory StarXpandPrinterModel.fromName(String name) {
+    try {
+      return StarXpandPrinterModel.values.byName(name);
+    } catch (e) {
+      return StarXpandPrinterModel.generic;
+    }
+  }
+  factory StarXpandPrinterModel.fromLabel(String label) =>
+      StarXpandPrinterModel.values
+          .where((e) => e.label.toLowerCase() == label.toLowerCase())
+          .firstOrNull ??
+      StarXpandPrinterModel.generic;
 }
 
 class StarXpandPrinter {
+  const StarXpandPrinter({required this.model, required this.identifier, required this.interface});
+
   /// Build response using map recieved from native platform
-  StarXpandPrinter.fromMap(Map<String, dynamic> response)
-      : model = StarXpandPrinterModel.fromName(response['model']),
-        identifier = response['identifier'],
-        interface = StarXpandInterface.fromName(response['interface']);
+  factory StarXpandPrinter.fromMap(Map<String, dynamic> response) => StarXpandPrinter(
+    model: StarXpandPrinterModel.fromName(response['model']),
+    identifier: response['identifier'],
+    interface: StarXpandInterface.fromName(response['interface']),
+  );
 
   // Name of the called method
-  StarXpandPrinterModel model;
-  String identifier;
-  StarXpandInterface interface;
+  final StarXpandPrinterModel model;
+  final String identifier;
+  final StarXpandInterface interface;
 
   /// Render a string repesentation of the response
   @override
@@ -70,10 +83,6 @@ class StarXpandPrinter {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'model': model.name,
-      'identifier': identifier,
-      'interface': interface.name
-    };
+    return {'model': model.name, 'identifier': identifier, 'interface': interface.name};
   }
 }

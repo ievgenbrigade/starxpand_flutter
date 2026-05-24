@@ -27,7 +27,7 @@ apply plugin: 'kotlin-android'
 android {
     namespace = 'com.ovatu.starxpand'
 
-    compileSdkVersion 31
+    compileSdkVersion 36
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -43,11 +43,11 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 26
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.starmicronics:stario10:1.8.0'
+    implementation 'com.starmicronics:stario10:1.11.2'
 }
