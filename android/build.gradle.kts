@@ -2,7 +2,6 @@ group = "com.ovatu.starxpand"
 version = "1.0-SNAPSHOT"
 
 buildscript {
-    extra["kotlin_version"] = "1.6.10"
 
     repositories {
         google()
@@ -11,7 +10,6 @@ buildscript {
 
     dependencies {
         classpath("com.android.tools.build:gradle:4.1.0")
-        val kotlinVersion = extra["kotlin_version"] as String
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
@@ -51,7 +49,6 @@ kotlin {
 }
 
 dependencies {
-    val kotlinVersion = rootProject.extra["kotlin_version"] as String
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$2.2.20")
     implementation("com.starmicronics:stario10:1.12.1")
 }
