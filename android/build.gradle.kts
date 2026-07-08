@@ -10,7 +10,7 @@ buildscript {
 
     dependencies {
         classpath("com.android.tools.build:gradle:4.1.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$2.2.20")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$2.2.21")
     }
 }
 
@@ -49,6 +49,6 @@ kotlin {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$2.2.20")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$2.2.21")
     implementation("com.starmicronics:stario10:1.12.1")
 }
