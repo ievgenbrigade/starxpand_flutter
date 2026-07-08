@@ -1,12 +1,12 @@
 name: starxpand
 description: A flutter wrapper around the Star Micronics StarXpand API.
-version: 0.0.11
+version: 0.0.12
 repository: https://github.com/ovatu/starxpand_flutter
 homepage: https://ovatu.com/us
 
 environment:
-  sdk: "^3.10.0"
-  flutter: ">=3.10.0"
+  sdk: "^3.12.0"
+  flutter: ">=3.44.0"
 
 dependencies:
   flutter:
