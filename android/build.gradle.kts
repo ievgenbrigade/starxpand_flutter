@@ -5,12 +5,6 @@ plugins {
     id("com.android.library")
 }
 
-val agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.substringBefore('.').toInt()
-
-if (agpMajor < 9) {
-    apply(plugin = "org.jetbrains.kotlin.android")
-}
-
 rootProject.allprojects {
     repositories {
         google()
