@@ -1,18 +1,9 @@
 group = "com.ovatu.starxpand"
 version = "1.0-SNAPSHOT"
 
-buildscript {
-    val kotlinVersion = "2.0.21"
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.5.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-    }
+plugins {
+    id("com.android.library") version "8.5.2"
+    id("org.jetbrains.kotlin.android") version "2.0.21"
 }
 
 rootProject.allprojects {
@@ -21,8 +12,6 @@ rootProject.allprojects {
         mavenCentral()
     }
 }
-
-apply(plugin = "com.android.library")
 
 android {
     namespace = "com.ovatu.starxpand"
@@ -34,18 +23,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
 
     defaultConfig {
         minSdk = 26
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
