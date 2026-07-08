@@ -1,6 +1,10 @@
 group = "com.ovatu.starxpand"
 version = "1.0-SNAPSHOT"
 
+plugins {
+    id("com.android.library")
+}
+
 buildscript {
     val kotlinVersion = "2.2.21"
 
@@ -21,8 +25,6 @@ rootProject.allprojects {
         mavenCentral()
     }
 }
-
-apply(plugin = "com.android.library")
 
 android {
     namespace = "com.ovatu.starxpand"
