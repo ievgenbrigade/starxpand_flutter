@@ -2,8 +2,8 @@ group = "com.ovatu.starxpand"
 version = "1.0-SNAPSHOT"
 
 plugins {
-    id("com.android.library") version "8.5.2"
-    id("org.jetbrains.kotlin.android") version "2.0.21"
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
 
 rootProject.allprojects {
