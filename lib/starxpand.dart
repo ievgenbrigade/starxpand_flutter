@@ -83,8 +83,8 @@ class StarXpand {
   static Future<bool> openDrawer(StarXpandPrinter printer) =>
       printDocument(printer, StarXpandDocument()..addDrawer(StarXpandDocumentDrawer()));
 
-  static Future<Map<String, dynamic>> getStatus(StarXpandPrinter printer) async {
-    return Map<String, dynamic>.from(
+  static Future<Map<String, bool>> getStatus(StarXpandPrinter printer) async {
+    return Map<String, bool>.from(
       await _channel.invokeMethod('getStatus', {"printer": printer.toMap()}),
     );
   }

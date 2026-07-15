@@ -24,7 +24,7 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
         case "printDocument": _printDocument(args: call.arguments as! [String:Any?], result: result)
         case "startInputListener": _startInputListener(args: call.arguments as! [String:Any?], result: result)
         case "stopInputListener": _stopInputListener(args: call.arguments as! [String:Any?], result: result)
-        case "getStatus": _getStatus(args: call.arguments as! [String:Any?], result: result)
+        case "getStatus": _getStatus(args: call.arguments as! [String:Bool?], result: result)
             default:
             result(false)
         }
@@ -42,7 +42,7 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
         }
     }
 
-    func _getStatus(args: [String:Any?], result: @escaping FlutterResult) {
+    func _getStatus(args: [String:Bool?], result: @escaping FlutterResult) {
         let printer = getPrinter(args["printer"] as! [String:Any])
 
         Task {
