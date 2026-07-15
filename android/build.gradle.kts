@@ -2,7 +2,7 @@ group = "com.ovatu.starxpand"
 version = "1.0-SNAPSHOT"
 
 plugins {
-    id("com.android.library") version "9.0.0" apply false
+    id("com.android.library")
 }
 
 rootProject.allprojects {
