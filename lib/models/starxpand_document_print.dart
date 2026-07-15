@@ -140,6 +140,10 @@ class StarXpandDocumentPrint extends StarXpandDocumentContent {
     _actions.add({'action': 'printLogo', 'keyCode': keyCode});
   }
 
+  void actionPrintRuledLine(double width, {double? x}) {
+    _actions.add({'action': 'printRuledLine', 'width': width, 'x': x});
+  }
+
   void actionPrintBarcode(
     String content, {
     StarXpandBarcodeSymbology? symbology,

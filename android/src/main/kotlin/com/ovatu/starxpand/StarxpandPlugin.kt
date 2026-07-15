@@ -436,10 +436,6 @@ class StarxpandPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             printerBuilder.styleHorizontalTabPositions((action["horizontalTabPosition"] as List<*>).map { it as Int })
           }
 
-          if (action["printRuledLine"] != null) {
-            printerBuilder.actionPrintRuledLine(RuledLineParameter(action["width"] as Double))
-          }
-
           if (action["internationalCharacter"] != null) {
             printerBuilder.styleInternationalCharacter(when (action["internationalCharacter"]) {
               "usa" -> InternationalCharacterType.Usa
@@ -515,6 +511,12 @@ class StarxpandPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         "printLogo" -> {
           val keyCode = action["keyCode"] as String
           printerBuilder.actionPrintLogo(LogoParameter(keyCode))
+        }
+        "printRuledLine" -> {
+          val x = action["x"] as Double
+          val param = RuledLineParameter(action["width"] as Double)
+          param.setX(x)
+          printerBuilder.actionPrintRuledLine(param)
         }
         "printBarcode" -> {
           val barcodeContent = action["content"] as String

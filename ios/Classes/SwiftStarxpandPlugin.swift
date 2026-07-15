@@ -487,6 +487,9 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
                 
                 case "printRuledLine":
                     let width = action["width"] as! Double
+                    let x = action["x"] as? Double
+                    let param = StarXpandCommand.Printer.RuledLineParameter(width: width)
+                    param.setX(x ?? 0.0)
                     if (width != nil) {
                         _ = printerBuilder.printRuledLine(StarXpandCommand.Printer.RuledLineParameter(width: width))
                     }
