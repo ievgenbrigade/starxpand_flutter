@@ -484,6 +484,12 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
                     if (bmp != nil) {
                         _ = printerBuilder.actionPrintImage(StarXpandCommand.Printer.ImageParameter(image: bmp!, width: width))
                     }
+                
+                case "printRuledLine":
+                    let width = action["width"] as! Double
+                    if (width != nil) {
+                        _ = printerBuilder.printRuledLine(StarXpandCommand.Printer.RuledLineParameter(width: width))
+                    }
                 default:
                 print("TODO")
             }

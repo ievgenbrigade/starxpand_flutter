@@ -436,6 +436,10 @@ class StarxpandPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             printerBuilder.styleHorizontalTabPositions((action["horizontalTabPosition"] as List<*>).map { it as Int })
           }
 
+          if (action["printRuledLine"] != null) {
+            printerBuilder.actionPrintRuledLine(RuledLineParameter(action["width"] as Double))
+          }
+
           if (action["internationalCharacter"] != null) {
             printerBuilder.styleInternationalCharacter(when (action["internationalCharacter"]) {
               "usa" -> InternationalCharacterType.Usa
