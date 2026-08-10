@@ -2,18 +2,18 @@ import Flutter
 import UIKit
 import StarIO10
 
-public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
+public class StarxpandPlugin: NSObject, FlutterPlugin {
     var manager: StarDeviceDiscoveryManager? = nil
     var channel: FlutterMethodChannel! = nil
 
-    var discoveryManager: SwiftStarxpandPluginDiscoveryManager? = nil
-    var inputManagers: Dictionary<String, SwiftStarxpandPluginInputManager> = [:]
+    var discoveryManager: StarxpandPluginDiscoveryManager? = nil
+    var inputManagers: Dictionary<String, StarxpandPluginInputManager> = [:]
 
     var printers: Dictionary<String, StarPrinter> = [:]
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "starxpand", binaryMessenger: registrar.messenger())
-        let instance = SwiftStarxpandPlugin()
+        let instance = StarxpandPlugin()
         instance.channel = channel
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
@@ -91,7 +91,7 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
                 return
             }
 
-            discoveryManager = SwiftStarxpandPluginDiscoveryManager(didFindPrinter: { _, printer in
+            discoveryManager = StarxpandPluginDiscoveryManager(didFindPrinter: { _, printer in
                 if (callbackGuid != nil) {
                     self.sendCallback(guid: callbackGuid!, type: "printerFound", payload: [
                     "model": printer.information?.model.stringValue(),
@@ -184,7 +184,7 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
 
         let printer = getPrinter(args["printer"] as! [String:Any])
 
-        inputManagers[callbackGuid] = SwiftStarxpandPluginInputManager { data in
+        inputManagers[callbackGuid] = StarxpandPluginInputManager { data in
             self.sendCallback(guid: callbackGuid, type: "dataReceived", payload: [
                 "data": FlutterStandardTypedData(bytes: data),
                 "string": String(decoding: data, as: UTF8.self)
@@ -503,7 +503,7 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
 
 }
 
-class SwiftStarxpandPluginDiscoveryManager: StarDeviceDiscoveryManagerDelegate {
+class StarxpandPluginDiscoveryManager: StarDeviceDiscoveryManagerDelegate {
     var printers: Array<StarPrinter> = []
     var didFindPrinter: (StarDeviceDiscoveryManager, StarPrinter) -> Void
     var didFinishDiscovery: (StarDeviceDiscoveryManager, Array<StarPrinter>) -> Void
@@ -524,7 +524,7 @@ class SwiftStarxpandPluginDiscoveryManager: StarDeviceDiscoveryManagerDelegate {
     }
 }
 
-class SwiftStarxpandPluginInputManager: InputDeviceDelegate {
+class StarxpandPluginInputManager: InputDeviceDelegate {
     var didReceiveData: (Data) -> Void
 
     init(didReceiveData: @escaping (Data) -> Void) {
