@@ -18,7 +18,7 @@ let package = Package(
         .library(name: "starxpand", targets: ["starxpand"])
     ],
     dependencies: [
-        .package(name: "FlutterFramework", path: "../FlutterFramework")
+        .package(name: "FlutterFramework", path: "../FlutterFramework"),
         .package(url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "1.13.0")
     ],
     targets: [
