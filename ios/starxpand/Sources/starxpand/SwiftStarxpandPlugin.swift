@@ -491,7 +491,7 @@ public class SwiftStarxpandPlugin: NSObject, FlutterPlugin {
                     let param = StarXpandCommand.Printer.RuledLineParameter(width: width)
                     param.setX(x ?? 0.0)
                     if (width != nil) {
-                        _ = printerBuilder.printRuledLine(StarXpandCommand.Printer.RuledLineParameter(width: width))
+                        _ = printerBuilder.actionPrintRuledLine(StarXpandCommand.Printer.RuledLineParameter(width: width))
                     }
                 default:
                 print("TODO")
