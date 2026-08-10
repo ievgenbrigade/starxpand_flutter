@@ -15,7 +15,7 @@ let package = Package(
     products: [
         // TODO: Update your library and target names.
         // If the plugin name contains "_", replace with "-" for the library name.
-        .library(name: "plugin-name", targets: ["starxpand"])
+        .library(name: "starxpand", targets: ["starxpand"])
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework")
