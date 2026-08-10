@@ -19,7 +19,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework"),
-        .package(name: "StarIO10", url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "1.13.0")
+        .package(name: "StarIO10", url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "2.13.0")
     ],
     targets: [
         .target(
