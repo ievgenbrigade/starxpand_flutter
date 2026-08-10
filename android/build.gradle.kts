@@ -2,7 +2,7 @@ group = "com.ovatu.starxpand"
 version = "1.0-SNAPSHOT"
 
 plugins {
-    id("com.android.library")
+    id("com.android.library") version "9.3.1"
 }
 
 rootProject.allprojects {
@@ -38,5 +38,5 @@ project.extensions.configure(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjec
 }
 
 dependencies {
-    implementation("com.starmicronics:stario10:1.12.1")
+    implementation("com.starmicronics:stario10:1.13.0")
 }
