@@ -19,14 +19,15 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework"),
-        .package(url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "1.13.0")
+        .package(name: "StarIO10", url: "https://github.com/star-micronics/StarXpand-SDK-iOS", from: "1.13.0")
     ],
     targets: [
         .target(
             // TODO: Update your target name.
             name: "starxpand",
             dependencies: [
-                .product(name: "FlutterFramework", package: "FlutterFramework")
+                .product(name: "FlutterFramework", package: "FlutterFramework"),
+                .product(name: "StarIO10", package: "StarIO10")
             ],
             resources: [
                 // TODO: If your plugin requires a privacy manifest
