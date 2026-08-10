@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     // TODO: Update your plugin name.
-    name: "starxpand_flutter",
+    name: "starxpand",
     platforms: [
         // TODO: Update the platforms your plugin supports.
         // If your plugin only supports iOS, remove `.macOS(...)`.
@@ -15,7 +15,7 @@ let package = Package(
     products: [
         // TODO: Update your library and target names.
         // If the plugin name contains "_", replace with "-" for the library name.
-        .library(name: "plugin-name", targets: ["starxpand_flutter"])
+        .library(name: "plugin-name", targets: ["starxpand"])
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework")
@@ -24,7 +24,7 @@ let package = Package(
     targets: [
         .target(
             // TODO: Update your target name.
-            name: "starxpand_flutter",
+            name: "starxpand",
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework")
             ],
